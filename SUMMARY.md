@@ -10,3 +10,7 @@
 
 * [Mysql](mysql/mysql.md)
 
+## leetcode
+
+* [1. Two Sum](leetcode/problem-1.md)
+
