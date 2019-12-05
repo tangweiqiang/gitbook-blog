@@ -9,11 +9,13 @@
 
 ## mysql
 
-* [Mysql](mysql/mysql.md)
+* [Mysql笔记](mysql/all.md)
 
 ## leetcode
 
-* [1. Two Sum](leetcode/problem-1.md)
+* [1. Two Sum](leetcode/problems-1.md)
+* [2. Add Two Numbers](leetcode/problems-2.md)
+* [3. Longest Substring Without Repeating Characters](leetcode/problems-3.md)
 
 ## Unsolved
 
