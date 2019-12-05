@@ -1,10 +1,11 @@
 # Table of contents
 
 * [Welcome](README.md)
+* [全部笔记](all.md)
 
 ## java
 
-* [Java 基础](java/java-ji-chu.md)
+* [Java笔记](java/all.md)
 
 ## mysql
 
@@ -13,4 +14,8 @@
 ## leetcode
 
 * [1. Two Sum](leetcode/problem-1.md)
+
+## Unsolved
+
+* [Unsolved](unsolved/unsolved.md)
 
