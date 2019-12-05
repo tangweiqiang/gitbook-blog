@@ -1,2 +1,4 @@
-# Initial page
+# Welcome
+
+Welcome to my blog
 
