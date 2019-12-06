@@ -14,7 +14,7 @@ link:  [https://leetcode-cn.com/problems/add-two-numbers/](https://leetcode-cn.c
 
 ### Solution
 
-```text
+```java
 /**
  * Definition for singly-linked list.
  * public class ListNode {

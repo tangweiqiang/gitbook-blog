@@ -5,11 +5,12 @@
 
 ## java
 
-* [Java笔记](java/all.md)
+* [Java笔记](java/base.md)
+* [JVM笔记](java/jvm.md)
 
 ## mysql
 
-* [Mysql笔记](mysql/all.md)
+* [Mysql笔记](mysql/base.md)
 
 ## leetcode
 

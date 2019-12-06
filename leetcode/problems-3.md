@@ -32,7 +32,7 @@ link:  [https://leetcode-cn.com/problems/add-two-numbers/](https://leetcode-cn.c
 
 ### Solution
 
-```text
+```java
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         int result = 0;
