@@ -114,6 +114,57 @@ HashMap和ConcurrentHashMap在1.8中的变化很大，其中最重要的有如�
         }
         addCount(1L, binCount);
         return null;
+    
+```
+
+## 2. 对象的创建方式
+
+* new关键字
+* 通过反射的Class的newInstance方法
+* 使用clone
+* 使用序列化和反序列化
+
+## 3. volatile关键字
+
+* volatile关键字是跳过了在线程工作内存中存取，而直接在主存中存取，因此保证了可见性，但是在多线程中同时存数据，没有办法保证最后存的是哪个。
+* volatile只能在类中被声明，不可在方法中声明。
+* volatile可以声明基本类型，数组和对象
+
+## 4. 线程池的工作原理
+
+线程池一般是由ThreadPoolExecutor产生，主要参数为 corePoolSize，maximumPoolSize，keepAliveTime，unit，workQueue，threadFactory，handler
+
+Executors.defaultThreadFactory\(\) PrivilegedThreadFactory DefaultThreadFactory
+
+ArrayBlockingQueue 它是一个由数组实现的阻塞队列，FIFO。 LinkedBlockingQueue 它是一个由链表实现的阻塞队列，FIFO。 吞吐量通常要高于ArrayBlockingQueue。 fixedThreadPool使用的阻塞队列就是它。 它是一个无界队列。 SynchronousQueue 它是一个没有存储空间的阻塞队列，任务提交给它之后必须要交给一条工作线程处理；如果当前没有空闲的工作线程，则立即创建一条新的工作线程。 cachedThreadPool用的阻塞队列就是它。 它是一个无界队列。 PriorityBlockingQueue 它是一个优先权阻塞队列。
+
+Executors中newFixedThreadPool\(\)，newSingleThreadExecutor\(\)采用的LinkedBlockingQueue  
+new ThreadPoolExecutor\(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue&lt;Runnable&gt;\(\)\)  
+newCachedThreadPool\(\)采用的SynchronousQueue，newScheduledThreadPool调用的ScheduledThreadPoolExecutor，采用的DelayedWorkQueue
+
+JDK1.5有四种饱和策略： AbortPolicy 默认。直接抛异常。 CallerRunsPolicy 只用调用者所在的线程执行任务。 DiscardOldestPolicy 丢弃任务队列中最久的任务。 DiscardPolicy 丢弃当前任务。
+
+```java
+    public ThreadPoolExecutor(int corePoolSize,
+                              int maximumPoolSize,
+                              long keepAliveTime,
+                              TimeUnit unit,
+                              BlockingQueue<Runnable> workQueue,
+                              ThreadFactory threadFactory,
+                              RejectedExecutionHandler handler) {
+        if (corePoolSize < 0 ||
+            maximumPoolSize <= 0 ||
+            maximumPoolSize < corePoolSize ||
+            keepAliveTime < 0)
+            throw new IllegalArgumentException();
+        if (workQueue == null || threadFactory == null || handler == null)
+            throw new NullPointerException();
+        this.corePoolSize = corePoolSize;
+        this.maximumPoolSize = maximumPoolSize;
+        this.workQueue = workQueue;
+        this.keepAliveTime = unit.toNanos(keepAliveTime);
+        this.threadFactory = threadFactory;
+        this.handler = handler;
     }
 ```
 
