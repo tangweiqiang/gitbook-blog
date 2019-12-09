@@ -12,6 +12,15 @@
 
 * [Mysql笔记](mysql/base.md)
 
+## apply
+
+* [Redis笔记](apply/redis.md)
+* [高并发高可用](apply/avaliable.md)
+
+## designpattern
+
+* [设计模式](designpattern/all.md)
+
 ## leetcode
 
 * [1. Two Sum](leetcode/problems-1.md)
