@@ -16,6 +16,7 @@
 
 * [Redis笔记](apply/redis.md)
 * [高并发高可用](apply/avaliable.md)
+* [哈希槽与一致性哈希](apply/hash.md)
 
 ## designpattern
 
@@ -26,6 +27,8 @@
 * [1. Two Sum](leetcode/problems-1.md)
 * [2. Add Two Numbers](leetcode/problems-2.md)
 * [3. Longest Substring Without Repeating Characters](leetcode/problems-3.md)
+* [4. Median of Two Sorted Arrays](leetcode/problems-4.md)
+* [169. Majority Element](leetcode/problems-169.md)
 
 ## Unsolved
 
