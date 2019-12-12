@@ -4,6 +4,59 @@
 
 ### 单例模式
 
+### 工厂模式（Factory Pattern）
+
+工厂模式是 Java 中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象。
+
+**注意：**策略模式和工厂模式非常相似，工厂模式是创造型模式，生产出来的都是新的对象，而策略模式是加载不同的策略，
+
+```java
+public class FactoryPatternDemo {
+   public static void main(String[] args) {
+      ShapeFactory shapeFactory = new ShapeFactory();
+      //获取 Circle 的对象，并调用它的 draw 方法
+      Shape shape1 = shapeFactory.getShape("CIRCLE");
+      //调用 Circle 的 draw 方法
+      shape1.draw();
+      //获取 Rectangle 的对象，并调用它的 draw 方法
+      Shape shape2 = shapeFactory.getShape("RECTANGLE");
+      //调用 Rectangle 的 draw 方法
+      shape2.draw();
+   }
+}
+interface Shape {
+   void draw();
+}
+class Rectangle implements Shape {
+ 
+   @Override
+   public void draw() {
+      System.out.println("Inside Rectangle::draw() method.");
+   }
+}
+class Square implements Shape {
+ 
+   @Override
+   public void draw() {
+      System.out.println("Inside Square::draw() method.");
+   }
+}
+class ShapeFactory {
+   //使用 getShape 方法获取形状类型的对象
+   public Shape getShape(String shapeType){
+      if(shapeType == null){
+         return null;
+      }        
+      if(shapeType.equalsIgnoreCase("CIRCLE")){
+         return new Circle();
+      } else if(shapeType.equalsIgnoreCase("RECTANGLE")){
+         return new Rectangle();
+      }
+      return null;
+   }
+}
+```
+
 ## 行为型模式
 
 ### 策略模式（Strategy Pattern）
@@ -33,13 +86,17 @@
 ```java
 public class StrategyPatternDemo {
    public static void main(String[] args) {
-      Context context = new Context(new OperationAdd());    
+      OperationAdd operationAdd = new OperationAdd();
+      OperationSubstract operationSubstract = new OperationSubstract();
+      OperationMultiply operationMultiply = new OperationMultiply();
+      Context context = new Context();
+      context.setStrategy(operationAdd);
       System.out.println("10 + 5 = " + context.executeStrategy(10, 5));
  
-      context = new Context(new OperationSubstract());      
+      context.setStrategy(operationSubstract);  
       System.out.println("10 - 5 = " + context.executeStrategy(10, 5));
  
-      context = new Context(new OperationMultiply());    
+      context.setStrategy(operationMultiply);
       System.out.println("10 * 5 = " + context.executeStrategy(10, 5));
    }
 }
@@ -61,7 +118,7 @@ class OperationSubstract implements Strategy{
 class Context {
    private Strategy strategy;
  
-   public Context(Strategy strategy){
+   public setStrategy(Strategy strategy){
       this.strategy = strategy;
    }
  
