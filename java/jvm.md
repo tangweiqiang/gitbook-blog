@@ -20,10 +20,24 @@ java的工作内存是cpu寄存器和高速缓存的抽象描述
 
 ## 3. jvm的垃圾回收器
 
-新生代有串行回收器，串行回收器的改良版-多线程串行回收器，并行回收器 老年代有串行回收器，并行回收器，cms 另外还有个g1回收器  
+**新生代收集器**：Serial、ParNew、Parallel Scavenge  
+**老年代收集器**：CMS、Serial Old、Parallel Old  
+**整堆收集器**： G1  
 1\)Minor gc 申请空间失败时  
 2\)Full gc  
 `System.gc()` 老年代内存空间不足，一般因Minor gc将新生代对象放到老年代，发现老年代空间也不足的时候发生 大对象一般直接放到老年代，单又没有足够的连续空间 方法区空间不足，如果经历full gc仍然不足，则会抛出oom
+
+### G1收集器 （Garbage First）
+
+link: [https://www.cnblogs.com/aspirant/p/8663872.html](https://www.cnblogs.com/aspirant/p/8663872.html)  
+G1分为eden代，Suvivor代，old代，永久代在1.8中改为了元空间
+
+跟其它垃圾回收器不一样的是：**G1虽然也把内存分成了这三大类，但是在G1里面这三大类不是泾渭分明的三大块内存，G1把内存划分成很多小块, 每个小块会被标记为E/S/O中的一个，可以前面一个是Eden后面一个就变成Survivor了。**  
+
+
+### **ZGC收集器**
+
+### Shenandoah
 
 ## 4. jvm的类加载机制
 

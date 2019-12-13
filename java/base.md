@@ -1,5 +1,7 @@
 # Java笔记
 
+java官网文档: [https://docs.oracle.com/en/java/javase/index.html](https://docs.oracle.com/en/java/javase/index.html)
+
 ## 1. HashMap
 
 HashMap和ConcurrentHashMap在1.8中的变化很大，其中最重要的有如下几点：
