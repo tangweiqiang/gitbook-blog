@@ -17,6 +17,7 @@
 * [Redis笔记](apply/redis.md)
 * [高并发高可用](apply/avaliable.md)
 * [哈希槽与一致性哈希](apply/hash.md)
+* [分布式事务：TCC 两阶段异步补偿型](apply/tcc.md)
 
 ## designpattern
 

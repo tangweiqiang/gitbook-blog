@@ -47,8 +47,8 @@ class ShapeFactory {
       if(shapeType == null){
          return null;
       }        
-      if(shapeType.equalsIgnoreCase("CIRCLE")){
-         return new Circle();
+      if(shapeType.equalsIgnoreCase("Square")){
+         return new Square();
       } else if(shapeType.equalsIgnoreCase("RECTANGLE")){
          return new Rectangle();
       }
@@ -81,7 +81,7 @@ class ShapeFactory {
 
 **注意事项：**如果一个系统的策略多于四个，就需要考虑使用混合模式，解决策略类膨胀的问题。
 
-![&#x7B56;&#x7565;&#x6A21;&#x5F0F;uml&#x7ED3;&#x6784;&#x56FE;](../.gitbook/assets/image.png)
+![&#x7B56;&#x7565;&#x6A21;&#x5F0F;uml&#x7ED3;&#x6784;&#x56FE;](../.gitbook/assets/image%20%285%29.png)
 
 ```java
 public class StrategyPatternDemo {
@@ -90,12 +90,13 @@ public class StrategyPatternDemo {
       OperationSubstract operationSubstract = new OperationSubstract();
       OperationMultiply operationMultiply = new OperationMultiply();
       Context context = new Context();
+      
       context.setStrategy(operationAdd);
       System.out.println("10 + 5 = " + context.executeStrategy(10, 5));
- 
+      
       context.setStrategy(operationSubstract);  
       System.out.println("10 - 5 = " + context.executeStrategy(10, 5));
- 
+
       context.setStrategy(operationMultiply);
       System.out.println("10 * 5 = " + context.executeStrategy(10, 5));
    }
@@ -129,4 +130,111 @@ class Context {
 ```
 
 ## 结构型模式
+
+### 代理模式（Proxy Pattern）
+
+在代理模式中，一个类代表另一个类的功能。这种类型的设计模式属于结构型模式。
+
+```java
+public class ProxyPatternDemo {
+   public static void main(String[] args) {
+      Image image = new ProxyImage("test_10mb.jpg");
+      // 图像将从磁盘加载
+      image.display(); 
+      System.out.println("");
+      // 图像不需要从磁盘加载
+      image.display();  
+   }
+}
+interface Image {
+   void display();
+}
+class RealImage implements Image {
+   private String fileName;
+   public RealImage(String fileName){
+      this.fileName = fileName;
+      loadFromDisk(fileName);
+   }
+   @Override
+   public void display() {
+      System.out.println("Displaying " + fileName);
+   }
+   private void loadFromDisk(String fileName){
+      System.out.println("Loading " + fileName);
+   }
+}
+class ProxyImage implements Image{
+   private RealImage realImage;
+   private String fileName;
+   public ProxyImage(String fileName){
+      this.fileName = fileName;
+   }
+   @Override
+   public void display() {
+      if(realImage == null){
+         realImage = new RealImage(fileName);
+      }
+      realImage.display();
+   }
+}
+```
+
+### 装饰器模式（Decorator Pattern）
+
+装饰器模式允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。
+
+```java
+public class DecoratorPatternDemo {
+   public static void main(String[] args) {
+      Shape circle = new Circle();
+      ShapeDecorator redCircle = new RedShapeDecorator(new Circle());
+      ShapeDecorator redRectangle = new RedShapeDecorator(new Rectangle());
+      //Shape redCircle = new RedShapeDecorator(new Circle());
+      //Shape redRectangle = new RedShapeDecorator(new Rectangle());
+      System.out.println("Circle with normal border");
+      circle.draw();
+      System.out.println("\nCircle of red border");
+      redCircle.draw();
+      System.out.println("\nRectangle of red border");
+      redRectangle.draw();
+   }
+}
+interface Shape {
+   void draw();
+}
+class Rectangle implements Shape {
+   @Override
+   public void draw() {
+      System.out.println("Shape: Rectangle");
+   }
+}
+class Circle implements Shape {
+   @Override
+   public void draw() {
+      System.out.println("Shape: Circle");
+   }
+}
+abstract class ShapeDecorator implements Shape {
+   protected Shape decoratedShape;
+   public ShapeDecorator(Shape decoratedShape){
+      this.decoratedShape = decoratedShape;
+   }
+   public void draw(){
+      decoratedShape.draw();
+   }  
+}
+class RedShapeDecorator extends ShapeDecorator {
+   public RedShapeDecorator(Shape decoratedShape) {
+      super(decoratedShape);     
+   }
+   @Override
+   public void draw() {
+      decoratedShape.draw();         
+      setRedBorder(decoratedShape);
+   }
+   private void setRedBorder(Shape decoratedShape){
+      System.out.println("Border Color: Red");
+   }
+}
+```
 
