@@ -59,6 +59,73 @@ class ShapeFactory {
 
 ## 行为型模式
 
+### 命令模式（Command Pattern）
+
+```java
+public class CommandPattern {
+    public static void main(String[] args) {
+        Light light = new Light();
+        LightOnCommand onCommand = new LightOnCommand(light);
+        LightOffCommand offCommand = new LightOffCommand(light);
+        Controller controller = new Controller();
+        controller.setCommand(onCommand, offCommand);
+        controller.onButton();
+        controller.offButton();
+    }
+}
+
+class Light {
+    public void lightOn() {
+        System.out.println("light on");
+    }
+    public void lightOff() {
+        System.out.println("light off");
+    }
+}
+interface Command {
+    void execute();
+}
+
+class LightOnCommand implements Command {
+    private Light light;
+    public LightOnCommand(Light light) {
+        this.light = light;
+    }
+
+    @Override
+    public void execute() {
+        light.lightOn();
+    }
+}
+class LightOffCommand implements Command {
+    private Light light;
+    public LightOffCommand(Light light) {
+        this.light = light;
+    }
+
+    @Override
+    public void execute() {
+        light.lightOff();
+    }
+}
+
+class Controller {
+    private Command onCommand;
+    private Command offCommand;
+
+    public void setCommand(Command onCommand, Command offCommand) {
+        this.onCommand = onCommand;
+        this.offCommand = offCommand;
+    }
+    public void onButton() {
+        onCommand.execute();
+    }
+    public void offButton() {
+        offCommand.execute();
+    }
+}
+```
+
 ### 策略模式（Strategy Pattern）
 
 **意图：**定义一系列的算法,把它们一个个封装起来, 并且使它们可相互替换。
