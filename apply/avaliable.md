@@ -20,27 +20,8 @@
 
 ### 额外
 
-vernish缓存，服务异步化
-
-架构上
-
-分库分表
-
-水平垂直拆分
-
-读写分离
-
-微服务化
-
+vernish缓存，服务异步化，redis缓存，本地缓存，熔断，降级，限流应该属于高可用的范围  
 link: [https://www.cnblogs.com/kaleidoscope/p/11976869.html](https://www.cnblogs.com/kaleidoscope/p/11976869.html)
-
-
-
-代码上
-
-异步Feature化，避免使用复杂查询，避免非索引查询，做好本地缓存和redis缓存，简化业务逻辑
-
-
 
 ## 高可用
 
