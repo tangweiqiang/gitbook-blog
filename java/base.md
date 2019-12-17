@@ -136,15 +136,30 @@ HashMap和ConcurrentHashMap在1.8中的变化很大，其中最重要的有如�
 
 线程池一般是由ThreadPoolExecutor产生，主要参数为 corePoolSize，maximumPoolSize，keepAliveTime，unit，workQueue，threadFactory，handler
 
-Executors.defaultThreadFactory\(\) PrivilegedThreadFactory DefaultThreadFactory
+**threadFactory**，在JDK中的线程工厂在Executors类中，分别为：
 
-ArrayBlockingQueue 它是一个由数组实现的阻塞队列，FIFO。 LinkedBlockingQueue 它是一个由链表实现的阻塞队列，FIFO。 吞吐量通常要高于ArrayBlockingQueue。 fixedThreadPool使用的阻塞队列就是它。 它是一个无界队列。 SynchronousQueue 它是一个没有存储空间的阻塞队列，任务提交给它之后必须要交给一条工作线程处理；如果当前没有空闲的工作线程，则立即创建一条新的工作线程。 cachedThreadPool用的阻塞队列就是它。 它是一个无界队列。 PriorityBlockingQueue 它是一个优先权阻塞队列。
+* PrivilegedThreadFactory
+* DefaultThreadFactory
 
-Executors中newFixedThreadPool\(\)，newSingleThreadExecutor\(\)采用的LinkedBlockingQueue  
-new ThreadPoolExecutor\(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue&lt;Runnable&gt;\(\)\)  
-newCachedThreadPool\(\)采用的SynchronousQueue，newScheduledThreadPool调用的ScheduledThreadPoolExecutor，采用的DelayedWorkQueue
+**workQueue**有如下几种
 
-JDK1.5有四种饱和策略： AbortPolicy 默认。直接抛异常。 CallerRunsPolicy 只用调用者所在的线程执行任务。 DiscardOldestPolicy 丢弃任务队列中最久的任务。 DiscardPolicy 丢弃当前任务。
+* ArrayBlockingQueue 它是一个由数组实现的阻塞队列，FIFO。 
+* LinkedBlockingQueue 它是一个由链表实现的阻塞队列，FIFO。 吞吐量通常要高于
+* ArrayBlockingQueue。 fixedThreadPool使用的阻塞队列就是它。 它是一个无界队列。 
+* SynchronousQueue 它是一个没有存储空间的阻塞队列，任务提交给它之后必须要交给一条工作线程处理；如果当前没有空闲的工作线程，则立即创建一条新的工作线程。 cachedThreadPool用的阻塞队列就是它。 它是一个无界队列。
+* PriorityBlockingQueue 它是一个优先权阻塞队列。
+
+在Executors中，  
+newFixedThreadPool\(\)，newSingleThreadExecutor\(\)采用的LinkedBlockingQueue  
+newCachedThreadPool\(\)采用的SynchronousQueue，  
+newScheduledThreadPool调用的ScheduledThreadPoolExecutor，采用的DelayedWorkQueue
+
+**handler**是当线程任务已满的时候，对于新来的任务，如何处理。JDK1.5有四种饱和策略： 
+
+* AbortPolicy 默认，直接抛异常。 
+* CallerRunsPolicy 只用调用者所在的线程执行任务。
+* DiscardOldestPolicy 丢弃任务队列中最久的任务。 
+* DiscardPolicy 丢弃当前任务。
 
 ```java
     public ThreadPoolExecutor(int corePoolSize,
@@ -169,4 +184,10 @@ JDK1.5有四种饱和策略： AbortPolicy 默认。直接抛异常。 CallerRun
         this.handler = handler;
     }
 ```
+
+### synchronized与Lock
+
+`synchronized`是通过jvm底层实现
+
+`Lock`是通过cap和AQS实现的，主要实现类为`ReentrantLock`和`ReentrantReadWriteLock`。
 
