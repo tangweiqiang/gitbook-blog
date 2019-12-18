@@ -196,6 +196,62 @@ class Context {
 }
 ```
 
+### 观察者模式（Observer Pattern）
+
+当Subject变动时，会通知所有的观察者
+
+```java
+public class ObserverPattern {
+    public static void main(String[] args) {
+        Observer observer = new ConcreteObserver();
+        ConcreteSubject subject = new ConcreteSubject();
+        subject.attach(observer);
+        subject.change("aaa");
+    }
+}
+
+class Subject {
+    private List<Observer> observerList = new ArrayList<>();
+
+    public void attach(Observer observer) {
+        observerList.add(observer);
+    }
+
+    public void detach(Observer observer) {
+        observerList.remove(observer);
+    }
+
+    public void notifyEveryOne(String state) {
+        for (Observer observer : observerList) {
+            observer.update(state);
+        }
+    }
+}
+
+interface Observer {
+    void update(String state);
+}
+
+class ConcreteObserver implements Observer {
+    private String state;
+
+    @Override
+    public void update(String state) {
+        this.state = state;
+    }
+}
+
+class ConcreteSubject extends Subject {
+    private String state;
+
+    public void change(String state) {
+        this.state = state;
+        //状态发生改变，通知观察者
+        notifyEveryOne(state);
+    }
+}
+```
+
 ## 结构型模式
 
 ### 代理模式（Proxy Pattern）
